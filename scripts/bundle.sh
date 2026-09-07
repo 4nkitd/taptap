@@ -21,6 +21,7 @@ for size in 16 32 128 256 512; do
     /usr/bin/sips -z "$size" "$size" "$dist/icon-source.png" --out "$iconset/icon_${size}x${size}.png" >/dev/null
 done
 /usr/bin/sips -z 32 32 "$dist/icon-source.png" --out "$iconset/icon_16x16@2x.png" >/dev/null
+/usr/bin/sips -z 64 64 "$dist/icon-source.png" --out "$iconset/icon_32x32@2x.png" >/dev/null
 /usr/bin/sips -z 256 256 "$dist/icon-source.png" --out "$iconset/icon_128x128@2x.png" >/dev/null
 /usr/bin/sips -z 512 512 "$dist/icon-source.png" --out "$iconset/icon_256x256@2x.png" >/dev/null
 /usr/bin/sips -z 1024 1024 "$dist/icon-source.png" --out "$iconset/icon_512x512@2x.png" >/dev/null

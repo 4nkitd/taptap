@@ -78,6 +78,7 @@ final class BindingStore: ObservableObject {
                 .triple: KeyBinding(keyCode: 113, label: "F15", toggle: false)
             ]
         }
+        UserDefaults.standard.set(true, forKey: "single-tap-option-migrated")
     }
 
     subscript(slot: GestureSlot) -> KeyBinding {
