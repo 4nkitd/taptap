@@ -1,0 +1,5 @@
+.build/
+dist/
+.taptap.log
+.taptap-runtime.log
+.DS_Store
