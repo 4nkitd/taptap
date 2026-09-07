@@ -41,9 +41,9 @@
     h1 { max-width: 690px; margin: 17px 0 24px; font-size: clamp(3.8rem, 8vw, 7.5rem); line-height: .88; letter-spacing: -.095em; }
     .hero-copy { max-width: 510px; color: #c4c3bb; font-size: 1.14rem; }
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
-    .fine { margin-top: 17px; color: #74746e; font: .72rem var(--mono); }
+    .fine { margin-top: 17px; color: #9a9990; font: .72rem var(--mono); }
     .gesture-stage { position: relative; min-height: 420px; border: 1px solid var(--line); background: #191916; overflow: hidden; }
-    .gesture-stage::before { content: ""; position: absolute; inset: 0; opacity: .36; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 34px 34px; mask-image: linear-gradient(to bottom, #000, transparent 82%); }
+    .gesture-stage::before { content: ""; position: absolute; inset: 0; opacity: .36; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(to bottom, #000, transparent 82%); mask-image: linear-gradient(to bottom, #000, transparent 82%); }
     .stage-label { position: absolute; top: 17px; left: 18px; z-index: 2; color: var(--muted); font: .68rem var(--mono); }
     .mac { position: absolute; left: 12%; right: 12%; top: 23%; height: 48%; border: 2px solid #77776e; border-radius: 18px 18px 10px 10px; transform: perspective(700px) rotateX(12deg); background: linear-gradient(135deg, #30302b, #1d1d1a); box-shadow: 0 25px 50px #0008; }
     .mac::after { content: ""; position: absolute; left: 16%; right: 16%; top: 13%; bottom: 18%; border: 1px solid #5f5f55; border-radius: 8px; }
@@ -68,24 +68,27 @@
     .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
     .slot { min-height: 138px; padding: 15px; border: 1px solid #45453e; background: #252520; text-align: left; color: var(--paper); cursor: pointer; transition: border-color .18s ease, transform .18s ease; }
     .slot:hover, .slot:focus-visible, .slot.active { border-color: var(--coral); transform: translateY(-3px); }
-    .slot .tap-count { color: var(--coral); font: .7rem var(--mono); } .slot strong { display: block; margin-top: 31px; font-size: 1.15rem; } .slot small { color: #85857c; font: .68rem var(--mono); }
+    .slot .tap-count { color: var(--coral); font: .7rem var(--mono); } .slot strong { display: block; margin-top: 31px; font-size: 1.15rem; } .slot small { color: #aaa99f; font: .68rem var(--mono); }
     .board-status { min-height: 24px; margin: 16px 0 0; color: var(--sky); font: .74rem var(--mono); }
     .shortcut { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
     .recipe { padding: 28px; border-left: 3px solid var(--acid); background: #1a1a16; } .recipe p { margin: 0 0 22px; color: #b8b8ae; } .command { display: block; padding: 15px; overflow: auto; background: #0d0d0b; color: var(--acid); font: .76rem var(--mono); }
-    .footer { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 45px; border-top: 1px solid var(--line); color: #77776f; font: .72rem var(--mono); }
+    .footer { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 45px; border-top: 1px solid var(--line); color: #aaa99f; font: .72rem var(--mono); }
+    .skip-link { position: absolute; left: 16px; top: -60px; z-index: 10; padding: 10px 14px; background: var(--acid); color: var(--ink); }
+    .skip-link:focus { top: 16px; }
     :focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
-    @media (max-width: 780px) { .shell { width: min(100% - 32px, 600px); } .nav-links { display: none; } .hero, .section-head, .board-wrap, .shortcut { grid-template-columns: 1fr; gap: 36px; } .hero { padding-top: 60px; } h1 { font-size: clamp(3.7rem, 19vw, 6rem); } .gesture-stage { min-height: 330px; } .sequence { grid-template-columns: 1fr; } .step, .step:not(:first-child) { min-height: auto; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); } .step:last-child { border-bottom: 0; } .slots { gap: 7px; } .slot { min-height: 125px; padding: 11px; } .slot strong { margin-top: 25px; font-size: .95rem; } }
+    @media (max-width: 780px) { .shell { width: min(100% - 32px, 600px); } .nav-links { display: none; } .hero, .section-head, .board-wrap, .shortcut { grid-template-columns: 1fr; gap: 36px; } .hero { padding-top: 60px; } h1 { font-size: clamp(3.2rem, 17vw, 6rem); } .gesture-stage { min-height: 330px; } .sequence { grid-template-columns: 1fr; } .step, .step:not(:first-child) { min-height: auto; padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); } .step:last-child { border-bottom: 0; } .slots { gap: 7px; } .slot { min-height: 125px; padding: 11px; } .slot strong { margin-top: 25px; font-size: .95rem; } .footer { align-items: flex-start; flex-direction: column; gap: 12px; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
   </style>
 </head>
 <body>
-  <header class="shell nav">
+  <header id="top" class="shell nav">
     <a class="brand" href="#top"><img src="hand-wave.svg" alt="">TapTap</a>
     <nav class="nav-links" aria-label="Main navigation"><a href="#how">How it works</a><a href="#configure">Configure</a><a href="#shortcuts">Shortcuts</a><a href="https://github.com/4nkitd/taptap">GitHub</a></nav>
     <a class="button" href="https://github.com/4nkitd/taptap/releases/latest">Download</a>
   </header>
 
-  <main id="top">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <main id="main-content">
     <section class="shell hero">
       <div>
         <div class="kicker">A new input surface for MacBook</div>
@@ -94,7 +97,7 @@
         <div class="actions"><a class="button" href="https://github.com/4nkitd/taptap/releases/latest">Get TapTap</a><a class="button ghost" href="#configure">See the controls</a></div>
         <div class="fine">macOS 13+ · Apple Silicon MacBooks with a usable motion sensor · open source</div>
       </div>
-      <div class="gesture-stage" aria-label="Illustration of a MacBook receiving taps">
+      <div class="gesture-stage" role="img" aria-label="Illustration of a MacBook receiving taps">
         <div class="stage-label">LIVE / CHASSIS SENSOR</div><div class="mac"></div><div class="tap-dot left"></div><div class="tap-dot right"></div><div class="tap-line left"></div><div class="tap-line right"></div>
         <div class="stage-caption"><span>left / right / anywhere</span><span>motion → intent</span></div>
       </div>
@@ -105,7 +108,7 @@
     </div></section>
 
     <section class="section" id="configure"><div class="shell board-wrap"><div class="board-copy"><div class="eyebrow">Try the gesture board</div><h2>Make the tap yours.</h2><p>These are the default slots. In the app, choose any key — even Option, Command, Control, or Shift — and decide whether it pulses or stays held until the next tap.</p><a class="button ghost" href="https://github.com/4nkitd/taptap#make-it-yours">Read the setup guide</a></div>
-      <div class="board"><div class="board-top"><span>TapTap / bindings</span><span class="live">READY TO MAP</span></div><div class="slots"><button class="slot" data-label="Option" data-mode="hold / unhold"><span class="tap-count">1 × TAP</span><strong>Option</strong><small>hold / unhold</small></button><button class="slot" data-label="F14" data-mode="pulse"><span class="tap-count">2 × TAP</span><strong>F14</strong><small>pulse</small></button><button class="slot" data-label="F15" data-mode="pulse"><span class="tap-count">3 × TAP</span><strong>F15</strong><small>pulse</small></button></div><p class="board-status" aria-live="polite">Select a gesture to preview its signal.</p></div>
+      <div class="board"><div class="board-top"><span>TapTap / bindings</span><span class="live">READY TO MAP</span></div><div class="slots"><button type="button" class="slot active" aria-pressed="true" data-label="Option" data-mode="hold / unhold"><span class="tap-count">1 × TAP</span><strong>Option</strong><small>hold / unhold</small></button><button type="button" class="slot" aria-pressed="false" data-label="F14" data-mode="pulse"><span class="tap-count">2 × TAP</span><strong>F14</strong><small>pulse</small></button><button type="button" class="slot" aria-pressed="false" data-label="F15" data-mode="pulse"><span class="tap-count">3 × TAP</span><strong>F15</strong><small>pulse</small></button></div><p class="board-status" aria-live="polite">Option signal · hold / unhold</p></div>
     </div></section>
 
     <section class="section" id="shortcuts"><div class="shell shortcut"><div><div class="eyebrow">Shortcuts, without the ceremony</div><h2>Give a gesture a shortcut key.</h2><p class="section-intro">In Apple Shortcuts, open a Shortcut’s details and choose “Add Keyboard Shortcut”. Press the same key you assigned in TapTap. Now a tap can start the whole workflow.</p></div><div class="recipe"><p>Example: assign F14 to a Shortcut that opens your focus workspace.</p><code class="command">shortcuts list<br>shortcuts run "My Shortcut"</code><div class="actions"><a class="button" href="https://github.com/4nkitd/taptap#apple-shortcuts">Read the recipe</a></div></div></div></section>
@@ -113,8 +116,9 @@
   <footer class="shell footer"><span>TapTap 👋 · built for the curious</span><span><a href="https://github.com/4nkitd/taptap">source</a> · MIT license</span></footer>
   <script>
     document.querySelectorAll('.slot').forEach(slot => slot.addEventListener('click', () => {
-      document.querySelectorAll('.slot').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.slot').forEach(item => { item.classList.remove('active'); item.setAttribute('aria-pressed', 'false'); });
       slot.classList.add('active');
+      slot.setAttribute('aria-pressed', 'true');
       document.querySelector('.board-status').textContent = `${slot.dataset.label} signal · ${slot.dataset.mode}`;
     }));
   </script>
