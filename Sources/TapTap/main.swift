@@ -44,6 +44,12 @@ final class DetectorSettings: ObservableObject {
         defaults.set(debounceMilliseconds, forKey: "detector-debounce-ms")
         defaults.set(gestureWindowMilliseconds, forKey: "detector-window-ms")
     }
+
+    func reset() {
+        sensitivity = 0.08
+        debounceMilliseconds = 120
+        gestureWindowMilliseconds = 400
+    }
 }
 
 final class BindingStore: ObservableObject {
@@ -167,6 +173,14 @@ final class GestureEngine {
         emitter.emit(store[slot])
     }
 
+    func resetDetection() {
+        initialized = false
+        lastImpact = 0
+        pendingCount = 0
+        generation += 1
+        onStatus?("Tap detection reset")
+    }
+
     private func sample(_ sample: MotionSample) {
         if !initialized {
             baseline = (sample.x, sample.y, sample.z)
@@ -280,7 +294,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func openSettings() {
         if settingsWindow == nil {
-            let view = SettingsView(store: store, settings: detectorSettings, onRecord: { [weak self] slot in self?.recordKey(for: slot) }, onClose: { [weak self] in self?.settingsWindow?.close() })
+            let view = SettingsView(store: store, settings: detectorSettings, onRecord: { [weak self] slot in self?.recordKey(for: slot) }, onReset: { [weak self] in
+                self?.detectorSettings.reset()
+                self?.engine.resetDetection()
+            }, onClose: { [weak self] in self?.settingsWindow?.close() })
             let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 520, height: 500), styleMask: [.titled, .closable], backing: .buffered, defer: false)
             window.isReleasedWhenClosed = false
             window.title = "TapTap Settings"
@@ -361,6 +378,7 @@ struct SettingsView: View {
     @ObservedObject var store: BindingStore
     @ObservedObject var settings: DetectorSettings
     let onRecord: (GestureSlot) -> Void
+    let onReset: () -> Void
     let onClose: () -> Void
 
     var body: some View {
@@ -382,6 +400,8 @@ struct SettingsView: View {
             settingSlider("Sensitivity", value: $settings.sensitivity, range: 0.02...0.30, format: "%.2f g")
             settingSlider("Tap separation", value: $settings.debounceMilliseconds, range: 60...300, format: "%.0f ms")
             settingSlider("Gesture window", value: $settings.gestureWindowMilliseconds, range: 200...900, format: "%.0f ms")
+            Button("Reset tap detection", action: onReset)
+                .foregroundStyle(.red)
             Spacer()
             HStack {
                 Spacer()

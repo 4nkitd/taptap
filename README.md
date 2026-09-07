@@ -38,6 +38,7 @@ Open **Settings…** to:
 - adjust sensitivity for gentle or firm taps;
 - adjust the minimum separation between taps;
 - adjust the gesture window used to recognize double and triple taps.
+- reset the detector baseline and restore the default tap-detection tuning without changing your key mappings.
 
 These controls matter because sensor placement, MacBook model, lid angle, desk surface, and tapping location all affect the signal. Start with a few test taps and tune until deliberate taps register without false positives.
 
