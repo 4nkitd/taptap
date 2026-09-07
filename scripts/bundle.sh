@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root="${0:A:h:h}"
-version="${1:-0.1.0}"
+version="${1:-0.1.3}"
 dist="$root/dist"
 app="$dist/TapTap.app"
 iconset="$dist/TapTap.iconset"

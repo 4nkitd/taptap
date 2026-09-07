@@ -85,6 +85,7 @@ final class BindingStore: ObservableObject {
             ]
         }
         UserDefaults.standard.set(true, forKey: "single-tap-option-migrated")
+        save()
     }
 
     subscript(slot: GestureSlot) -> KeyBinding {
@@ -295,6 +296,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     @objc private func openSettings() {
         if settingsWindow == nil {
             let view = SettingsView(store: store, settings: detectorSettings, onRecord: { [weak self] slot in self?.recordKey(for: slot) }, onReset: { [weak self] in
+                self?.stopRecording()
+                self?.emitter.releaseAll()
                 self?.detectorSettings.reset()
                 self?.engine.resetDetection()
             }, onClose: { [weak self] in self?.settingsWindow?.close() })
